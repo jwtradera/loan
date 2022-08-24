@@ -51798,6 +51798,8 @@ definitions:
         type: string
   jwtradera.loan.loan.MsgApproveLoanResponse:
     type: object
+  jwtradera.loan.loan.MsgLiquidateLoanResponse:
+    type: object
   jwtradera.loan.loan.MsgRepayLoanResponse:
     type: object
   jwtradera.loan.loan.MsgRequestLoanResponse:
