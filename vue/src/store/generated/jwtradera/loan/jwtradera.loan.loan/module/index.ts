@@ -4,16 +4,18 @@ import { StdFee } from "@cosmjs/launchpad";
 import { SigningStargateClient } from "@cosmjs/stargate";
 import { Registry, OfflineSigner, EncodeObject, DirectSecp256k1HdWallet } from "@cosmjs/proto-signing";
 import { Api } from "./rest";
-import { MsgApproveLoan } from "./types/loan/tx";
-import { MsgRequestLoan } from "./types/loan/tx";
 import { MsgRepayLoan } from "./types/loan/tx";
+import { MsgApproveLoan } from "./types/loan/tx";
+import { MsgCancelLoan } from "./types/loan/tx";
+import { MsgRequestLoan } from "./types/loan/tx";
 import { MsgLiquidateLoan } from "./types/loan/tx";
 
 
 const types = [
-  ["/jwtradera.loan.loan.MsgApproveLoan", MsgApproveLoan],
-  ["/jwtradera.loan.loan.MsgRequestLoan", MsgRequestLoan],
   ["/jwtradera.loan.loan.MsgRepayLoan", MsgRepayLoan],
+  ["/jwtradera.loan.loan.MsgApproveLoan", MsgApproveLoan],
+  ["/jwtradera.loan.loan.MsgCancelLoan", MsgCancelLoan],
+  ["/jwtradera.loan.loan.MsgRequestLoan", MsgRequestLoan],
   ["/jwtradera.loan.loan.MsgLiquidateLoan", MsgLiquidateLoan],
   
 ];
@@ -47,9 +49,10 @@ const txClient = async (wallet: OfflineSigner, { addr: addr }: TxClientOptions =
 
   return {
     signAndBroadcast: (msgs: EncodeObject[], { fee, memo }: SignAndBroadcastOptions = {fee: defaultFee, memo: ""}) => client.signAndBroadcast(address, msgs, fee,memo),
-    msgApproveLoan: (data: MsgApproveLoan): EncodeObject => ({ typeUrl: "/jwtradera.loan.loan.MsgApproveLoan", value: MsgApproveLoan.fromPartial( data ) }),
-    msgRequestLoan: (data: MsgRequestLoan): EncodeObject => ({ typeUrl: "/jwtradera.loan.loan.MsgRequestLoan", value: MsgRequestLoan.fromPartial( data ) }),
     msgRepayLoan: (data: MsgRepayLoan): EncodeObject => ({ typeUrl: "/jwtradera.loan.loan.MsgRepayLoan", value: MsgRepayLoan.fromPartial( data ) }),
+    msgApproveLoan: (data: MsgApproveLoan): EncodeObject => ({ typeUrl: "/jwtradera.loan.loan.MsgApproveLoan", value: MsgApproveLoan.fromPartial( data ) }),
+    msgCancelLoan: (data: MsgCancelLoan): EncodeObject => ({ typeUrl: "/jwtradera.loan.loan.MsgCancelLoan", value: MsgCancelLoan.fromPartial( data ) }),
+    msgRequestLoan: (data: MsgRequestLoan): EncodeObject => ({ typeUrl: "/jwtradera.loan.loan.MsgRequestLoan", value: MsgRequestLoan.fromPartial( data ) }),
     msgLiquidateLoan: (data: MsgLiquidateLoan): EncodeObject => ({ typeUrl: "/jwtradera.loan.loan.MsgLiquidateLoan", value: MsgLiquidateLoan.fromPartial( data ) }),
     
   };
